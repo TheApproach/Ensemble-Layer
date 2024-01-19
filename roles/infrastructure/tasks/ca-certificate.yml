@@ -1,0 +1,30 @@
+- name: Install the ca-certificates package
+  ansible.builtin.apt:
+    name: ca-certificates
+    state: present
+  become: true
+
+- name: Create the suitespace directory if it doesn't exist
+  ansible.builtin.file:
+    path: /usr/local/share/ca-certificates/orchestra.private
+    state: directory
+    mode: 0755
+
+- name: Copy the root certificate file
+  ansible.builtin.copy:
+    src: "{{ root_certificate }}"
+    dest: /usr/local/share/ca-certificates/orchestra.private/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Check if root certificate file exists
+  ansible.builtin.stat:
+    path: /usr/local/share/ca-certificates/orchestra.private/{{ root_certificate }}
+  register: root_certificate_stat
+
+- name: Update the certificate store
+  ansible.builtin.command: update-ca-certificates
+  become: true
+  become_user: root
+  when: root_certificate_stat.stat.exists

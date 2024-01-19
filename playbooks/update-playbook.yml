@@ -1,0 +1,32 @@
+--- #ansible-playbook -i /home/ubuntu/ansible/inventories/hosts.yml /home/ubuntu/ansible/playbooks/update-playbook.yml
+- hosts: utility
+  name: Apt update & reboot if required
+  become: true
+  become_user: root
+  tasks:
+    - name: Update apt repositories and upgrade all packages
+      become: true
+      become_user: root
+      ansible.builtin.apt:
+        upgrade: dist
+        update_cache: true
+        force_apt_get: true
+        cache_valid_time: 3600
+
+    - name: Check if a reboot is needed on all servers
+      register: reboot_required_file
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+        get_md5: false
+
+    - name: Reboot if required
+      become: true
+      become_user: root
+      when: reboot_required_file.stat.exists
+      ansible.builtin.reboot:
+        msg: "Reboot initiated by Ansible for kernel updates"
+        connect_timeout: 5
+        reboot_timeout: 300
+        pre_reboot_delay: 0
+        post_reboot_delay: 30
+        test_command: uptime

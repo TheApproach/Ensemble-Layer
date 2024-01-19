@@ -1,0 +1,29 @@
+--- #ansible-playbook -i /home/ubuntu/ansible/inventories/hosts.yml /home/ubuntu/ansible/playbooks/ca-certificate-playbook.yml
+- hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Install the ca-certificates package
+      ansible.builtin.apt:
+        name: ca-certificates
+        state: present
+      become: true
+
+    - name: Copy the root certificate file
+      ansible.builtin.copy:
+        src: "/home/ubuntu/suite_root.crt"
+        dest: /usr/local/share/ca-certificates/
+        owner: root
+        group: root
+        mode: 0644
+      become: true
+
+    - name: Check if root certificate file exists
+      ansible.builtin.stat:
+        path: /usr/local/share/ca-certificates/suite_root.crt
+      register: root_certificate_stat
+      become: true
+
+    - name: Update the certificate store
+      ansible.builtin.command: update-ca-certificates
+      become: true
+      when: root_certificate_stat.stat.exists

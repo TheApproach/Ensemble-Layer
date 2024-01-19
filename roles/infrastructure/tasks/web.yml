@@ -1,0 +1,168 @@
+## WEB STACK
+
+# stop apache2
+- name: Stop apache2
+  ansible.builtin.shell: systemctl stop apache2
+  become: true
+  become_user: root
+  ignore_errors: true
+
+
+# stop apache2
+- name: Stop apache2
+  ansible.builtin.shell: systemctl disable apache2
+  become: true
+  become_user: root
+  ignore_errors: true
+
+# disable apache2
+- name: Disable apache2 service
+  ansible.builtin.service:
+    name: apache2
+    enabled: false
+    state: stopped
+  become: true
+  become_user: root
+  ignore_errors: true
+
+# uninstall apache2
+- name: Uninstall the Apache web server
+  become: true
+  become_user: root
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - apache2
+    - apache2-bin
+    - apache2-data
+    - apache2-utils
+
+# Install PHP 8.2
+- name: Add PPA for PHP 8.2
+  become: true
+  become_user: root
+  ansible.builtin.apt_repository:
+    repo: ppa:ondrej/php
+    state: present
+    validate_certs: false
+
+- name: Install PHP 8.2
+  become: true
+  become_user: root
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - php8.2
+    - php8.2-cli
+    - php8.2-common
+    - php8.2-curl
+    - php8.2-gd
+    - php8.2-intl
+    - php8.2-mbstring
+    - php8.2-mysql
+    - php8.2-opcache
+    - php8.2-readline
+    - php8.2-xml
+    - php8.2-zip
+
+# Install PHP-FPM
+- name: Install PHP-FPM
+  ansible.builtin.apt:
+    name: "php8.2-fpm"
+    state: present
+  become: true
+  become_user: root
+
+- name: Enable PHP-FPM service
+  ansible.builtin.service:
+    name: "php8.2-fpm"
+    enabled: true
+    state: started
+  become: true
+  become_user: root
+
+# Install nginx
+- name: Install nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+  become: true
+  become_user: root
+
+# Create PHP-FPM configuration file for project
+- name: Create PHP-FPM configuration file for project
+  ansible.builtin.template:
+    src: templates/php-fpm.conf.j2
+    dest: /etc/php/8.2/fpm/pool.d/{{ project_name }}.conf
+  register: php_fpm_conf_file
+  become: true
+  become_user: root
+
+# Print PHP-FPM configuration file path
+- name: Print PHP-FPM configuration file path
+  ansible.builtin.debug:
+    msg: "PHP-FPM configuration file is at {{ php_fpm_conf_file.dest }}"
+
+- name: Reload PHP-FPM service
+  ansible.builtin.service:
+    name: "php8.2-fpm"
+    state: reloaded
+  become: true
+  become_user: root
+
+# Create nginx configuration file for project
+- name: Create nginx configuration file for project
+  ansible.builtin.template:
+    src: templates/nginx.conf.j2
+    dest: /etc/nginx/sites-available/{{ project_name }}.conf
+  become: true
+  become_user: root
+
+- name: Enable nginx configuration file for project
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/{{ project_name }}.conf
+    dest: /etc/nginx/sites-enabled/{{ project_name }}.conf
+    state: link
+  become: true
+  become_user: root
+
+# firewall rules for NGINX
+- name: Allow incoming traffic on port 80 (TCP)
+  become: true
+  become_user: root
+  community.general.ufw:
+    rule: allow
+    port: 80
+    proto: tcp
+
+- name: Allow incoming traffic on port 443 (TCP)
+  become: true
+  become_user: root
+  community.general.ufw:
+    rule: allow
+    port: 443
+    proto: tcp
+
+- name: Enable ufw
+  become: true
+  become_user: root
+  community.general.ufw:
+    state: enabled
+
+- name: Enable nginx service
+  ansible.builtin.service:
+    name: nginx
+    enabled: true
+    state: started
+  become: true
+  become_user: root
+
+- name: Reload nginx
+  ansible.builtin.service:
+    name: nginx
+    state: reloaded
+  become: true
+  become_user: root
+## END WEB STACK

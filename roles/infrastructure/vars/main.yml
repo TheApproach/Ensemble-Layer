@@ -1,0 +1,71 @@
+---
+project_name: "infrastructure_test"
+server_name: "infrastructure_test.suitespace.corp"
+
+local_subnet: 192.168.0.0/24
+
+root_certificate: suite_root.crt
+suiteshare_dir: /usr/share/suiteshare
+
+nameserver0: 192.168.0.52
+nameserver1: 192.168.0.44
+
+users:
+  - name: garet
+    state: present
+    createhome: true
+    group: sudo
+    groups:
+      - superuser
+      - fullstack
+    uid: 65536
+  - name: tom
+    state: present
+    createhome: true
+    group: sudo
+    groups:
+      - superuser
+      - fullstack
+    uid: 65537
+  - name: suitespace
+    state: present
+    createhome: true
+    group: suitesystem
+    groups: 
+    uid: 65538
+  - name: nick
+    state: present
+    createhome: true
+    group: "frontend"
+    groups:
+      - designer
+      - frontend
+    uid: 65540
+  - name: sean
+    state: present
+    createhome: true
+    group: "designer"
+    groups:
+      - designer
+      - frontend
+      - resource
+    uid: 65541
+  - name: john
+    state: present
+    createhome: true
+    group: "superuser"
+    groups:
+      - superuser
+      - fullstack
+    uid: 65542
+
+user_groups:
+  - { name: superuser, state: present, gid: 70000 }
+  - { name: suitesystem, state: present, gid: 70001 }
+  - { name: fullstack, state: present, gid: 70002 }
+  - { name: backend, state: present, gid: 70003 }
+  - { name: resource, state: present, gid: 70004 }
+  - { name: devops, state: present, gid: 70005 }
+  - { name: designer, state: present, gid: 70006 }
+  - { name: server, state: present, gid: 70007 }
+  - { name: frontend, state: present, gid: 70008 }

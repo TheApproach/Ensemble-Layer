@@ -1,0 +1,54 @@
+# UPDATE & REBOOT
+- name: Update & Reboot
+  ansible.builtin.include_tasks: update.yml
+
+# USERS & GROUPS
+- name: Add multiple groups
+  ansible.builtin.group:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    gid: "{{ item.gid }}"
+  loop: "{{ user_groups }}"
+  become: true
+
+- name: Add multiple users
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    createhome: "{{ item.createhome }}"
+    group: "{{ item.group }}"
+    groups: "{{ item.groups }}"
+    uid: "{{ item.uid }}"
+  loop: "{{ users }}"
+  become: true
+# END USERS & GROUPS
+
+
+# ROOT CA CERTIFICATE
+# - name: Root CA Certificate
+#   ansible.builtin.include_tasks: ca-certificate.yml
+
+# FIREWALL
+- name: Firewall configuration
+  ansible.builtin.include_tasks: firewall.yml
+
+# DNS
+# TODO: BUG: dns appears to be broken
+- name: Add domain-name-servers line to dhclient.conf
+  become: true
+  become_user: root
+  ansible.builtin.lineinfile:
+    path: /etc/dhcp/dhclient.conf
+    line: "prepend domain-name-servers {{ nameserver0 }}, {{ nameserver1 }};"
+    insertbefore: EOF
+    create: true
+    state: present
+# END DNS
+
+# SUITESHARE
+- name: SuiteShare
+  ansible.builtin.include_tasks: suiteshare.yml
+
+# WEB STACK
+- name: Web Stack
+  ansible.builtin.include_tasks: tasks/web.yml

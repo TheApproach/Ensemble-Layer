@@ -1,0 +1,5 @@
+---
+- name: Infrastructure
+  hosts: test
+  roles:
+    - infrastructure

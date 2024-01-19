@@ -1,0 +1,49 @@
+---
+all:
+  vars:
+    ansible_ssh_port: 1377
+    ansible_port: 1377
+    ansible_user: ubuntu
+  children:
+    ensemble:
+      children:
+        dns:
+          hosts:
+            dns-[00:01].system-00.my.home:
+        dns_auth:
+          hosts:
+            192.168.0.250:
+        dns_dist:
+          hosts:
+            192.168.0.251:
+            192.168.0.252:
+        dns_recursor:
+          hosts:
+            192.168.0.251:
+            192.168.0.252:
+        edge:
+          hosts:
+            edge-[0000:0001].system-00.my.home:
+        share:
+          hosts:
+            share-[00:15].system-00.my.home:
+        database:
+          hosts:
+            database-[01:03].system-00.my.home:
+        staging:
+          hosts:
+            edge-[0000:0001].staging-00.my.home:
+            spool-00.staging-00.my.home:
+            database-00.staging-00.my.home:
+        balancer:
+          hosts:
+            balancer-[00:01].system-00.my.home:
+        utility:
+          hosts:
+            utility-00.system-00.my.home:
+        component:
+          hosts:
+            component-[00:11].system-00.my.home:
+        test:
+          hosts:
+            192.168.0.77:

@@ -1,0 +1,95 @@
+- name: Install software-properties-common
+  become: true
+  become_user: root
+  ansible.builtin.apt:
+    name: software-properties-common
+    state: present
+
+- name: Install openssh-server, vim, and wget
+  become: true
+  become_user: root
+  ansible.builtin.apt:
+    name:
+      - openssh-server
+      - vim
+      - wget
+    state: present
+
+- name: Install glusterfs-client
+  become: true
+  become_user: root
+  ansible.builtin.apt:
+    name: 
+      - glusterfs-client
+    state: present
+
+- name: Check if the directory exists
+  become: true
+  ansible.builtin.stat:
+    path: "{{ suiteshare_dir }}"
+  register: dir_result
+
+- name: Create suiteshare_dir directory
+  become: true
+  when: dir_result.stat.exists == false
+  ansible.builtin.file:
+    path: "{{ suiteshare_dir }}"
+    state: directory
+    owner: 65538
+    group: 70001
+    mode: "0775"
+    recurse: true
+
+
+# - name: Add GlusterFS repository
+#   become: true
+#   become_user: root
+#   ansible.builtin.apt_repository:
+#     repo: "ppa:gluster/glusterfs-7"
+#     state: present
+
+# - name: Update apt package list
+#   become: true
+#   become_user: root
+#   ansible.builtin.apt:
+#     update_cache: yes
+
+
+- name: Mount GlusterFS volume at suiteshare_dir
+  become: true
+  ansible.posix.mount:
+    path: "{{ suiteshare_dir }}"
+    src: suiteshare.suitespace.corp:/SuiteShare
+    fstype: glusterfs
+    opts: defaults,acl,_netdev
+    state: mounted
+    backup: true
+  register: mount_result
+
+# - name: Add a line to /etc/fstab
+#   become: true
+#   ansible.builtin.blockinfile:
+#     path: /etc/fstab
+#     block: |
+#       # SuiteShare Gluster Cluster
+#       suiteshare.suitespace.corp:/SuiteShare {{ suiteshare_dir }}    ext4    glusterfs defaults,acl,_netdev 0 0
+#     marker: "# SuiteShare Gluster Cluster"
+
+- name: Reboot
+  become: true
+  become_user: root
+  when: mount_result.changed
+  ansible.builtin.reboot:
+    msg: "Reboot initiated by Ansible for kernel updates"
+    connect_timeout: 5
+    reboot_timeout: 300
+    pre_reboot_delay: 0
+    post_reboot_delay: 30
+    test_command: uptime
+
+# - name: Set ownership of suiteshare_dir to 65538:70001
+#   become: true
+#   ansible.builtin.file:
+#     path: "{{ suiteshare_dir }}"
+#     owner: 65538
+#     group: 70001

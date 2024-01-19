@@ -1,0 +1,77 @@
+- name: Install ufw
+  become: true
+  become_user: root
+  ansible.builtin.apt:
+    name: ufw
+    state: present
+
+- name: Disable ufw
+  become: true
+  become_user: root
+  community.general.ufw:
+    state: disabled
+
+- name: Allow 22
+  become: true
+  become_user: root
+  community.general.ufw:
+    rule: allow
+    port: 22
+    proto: tcp
+    src: "{{ local_subnet }}"
+
+- name: Allow 1377
+  become: true
+  become_user: root
+  community.general.ufw:
+    rule: allow
+    port: 1377
+    proto: tcp
+    src: "{{ local_subnet }}"
+
+- name: Allow incoming connections on DNS (UDP)
+  become: true
+  become_user: root
+  community.general.ufw:
+    rule: allow
+    port: 53
+    proto: udp
+    src: "{{ local_subnet }}"
+
+- name: Allow incoming connections on DNS (TCP)
+  become: true
+  become_user: root
+  community.general.ufw:
+    rule: allow
+    port: 53
+    proto: tcp
+    src: "{{ local_subnet }}"
+
+- name: Allow outgoing traffic to IP range 192.168.0.0/24
+  become: true
+  become_user: root
+  community.general.ufw:
+    rule: allow
+    direction: in
+    src: "{{ local_subnet }}"
+
+- name: Allow outgoing traffic to IP range 192.168.0.0/24
+  become: true
+  become_user: root
+  community.general.ufw:
+    rule: allow
+    direction: out
+    src: "{{ local_subnet }}"
+
+- name: Deny all incoming traffic
+  become: true
+  become_user: root
+  community.general.ufw:
+    rule: deny
+    direction: in
+
+- name: Enable ufw
+  become: true
+  become_user: root
+  community.general.ufw:
+    state: enabled

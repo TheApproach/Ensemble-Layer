@@ -1,0 +1,129 @@
+---
+- hosts: balancer
+  name: Add users & groups
+  become: true
+  tasks:
+    - name: Add group "superuser" to remote server
+      ansible.builtin.group:
+        name: superuser
+        state: present
+        gid: 70000
+
+    - name: Add group "suitesystem" to remote server
+      ansible.builtin.group:
+        name: suitesystem
+        state: present
+        gid: 70001
+
+    - name: Add group "fullstack" to remote server
+      ansible.builtin.group:
+        name: fullstack
+        state: present
+        gid: 70002
+
+    - name: Add group "backend" to remote server
+      ansible.builtin.group:
+        name: backend
+        state: present
+        gid: 70003
+
+    - name: Add group "database" to remote server
+      ansible.builtin.group:
+        name: database
+        state: present
+        gid: 70004
+
+    - name: Add group "devops" to remote server
+      ansible.builtin.group:
+        name: devops
+        state: present
+        gid: 70005
+
+    - name: Add group "designer" to remote server
+      ansible.builtin.group:
+        name: designer
+        state: present
+        gid: 70006
+
+    - name: Add group "server" to remote server
+      ansible.builtin.group:
+        name: server
+        state: present
+        gid: 70007
+
+    - name: Add group "frontend" to remote server
+      ansible.builtin.group:
+        name: frontend
+        state: present
+        gid: 70008
+
+    - name: Create user Garet
+      ansible.builtin.user:
+        name: garet
+        state: present
+        comment: "Garet Claborn"
+        createhome: true
+        group: sudo
+        groups:
+          - superuser
+          - fullstack
+        uid: 65536
+
+    - name: Create user Tom
+      ansible.builtin.user:
+        name: tom
+        state: present
+        comment: "Tom Samwel"
+        createhome: true
+        group: sudo
+        groups:
+          - superuser
+          - fullstack
+        uid: 65537
+
+    - name: Create user me
+      ansible.builtin.user:
+        name: suitespace
+        state: present
+        comment: "suitespace"
+        createhome: true
+        group: suitesystem
+        groups:
+        uid: 65538
+
+    - name: Create user nick
+      ansible.builtin.user:
+        name: nick
+        state: present
+        comment: "nick's user"
+        createhome: true
+        group:
+        groups:
+          - designer
+          - frontend
+        uid: 65540
+
+    - name: Create user Sean
+      ansible.builtin.user:
+        name: sean
+        state: present
+        comment: "sean's user"
+        createhome: true
+        group:
+        groups:
+          - designer
+          - frontend
+          - database
+        uid: 65541
+
+    - name: Create user John
+      ansible.builtin.user:
+        name: john
+        state: present
+        comment: "John's user"
+        createhome: true
+        group:
+        groups:
+          - fullstack
+          - database
+        uid: 65542
