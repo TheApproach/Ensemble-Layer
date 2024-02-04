@@ -1,0 +1,379 @@
+.Banner.layoutComponent > ul.tallFit > li.tab-pane {
+  padding-left: 0;
+  padding-right: 0;
+  top: 37px;
+  height: 93%;
+}
+.Banner.layoutComponent > ul.tallFit > li.tab-pane > * > .layoutComponentController {
+  height: 37px;
+}
+.Banner.layoutComponent > ul.tallFit > li.tab-pane > .layoutComponent {
+  margin: 0;
+}
+.layoutImg {
+  z-index: 1005;
+}
+.Banner.layoutComponent > ul.tallFit > li.tab-pane > .layoutComponent > *:first-child
+
+.modal{ left: auto !important; right: 1rem; }
+.panel{ position: relative; }
+.ComponentControl{ padding: 4px; }
+.draggable:hover{ border: 4px dotted #77C; cursor: move; z-index: 32767; }
+
+.ui-draggable-dragging
+{
+	border: 4px double blue;
+	z-index: 32767;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	/*filter: alpha(opacity=50);*/
+	-moz-opacity: 0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
+}
+.drop-hover, .droppable-hover{ background-color: #ffa; border: 4px double black !important; }
+
+#addRow{
+position: absolute; left: 0; top: 0;
+margin-left: -12em;
+}
+#layoutCanvas{ padding-bottom: 42px; padding-top:3em;}
+
+.addComponentBtn, .addRowBtn, .showComponentLib, #addRowBtn, #addSelectRowBtn{ vertical-align: middle; line-height: 26px; text-align: center; height: 38px; border-radius: 5px; background-color: #26B1CE; padding: 6px 12px; font-size: 24px;   color: white; display: inline-block;}
+.addComponentBtn{     background-color: #9a9a9a; position: relative; z-index: 10010;}
+.smallBtn{ font-size: 12px; height: 33px; border-radius: 5px; color: white; min-width: 8em;}
+.lgBtn{ font-size: 13px; height: 38px; border-radius: 3px; color: white; min-width: 8em; border: 0; font-weight: 400}
+i.fa:hover, i.fa, button, button:hover { color: white;  }
+.layoutRowController .fa, .layoutRowController .fa:hover{ color:black !important;}
+
+#addRowBtn:hover, #addSelectRowBtn:hover{ background-color: #06719E; }
+
+li{ list-style: none; }
+
+#AdminNav{ text-align: center; margin-top: 38px; }
+#ContentHeader{ margin-top: 38px; }
+
+.layoutRowStage{display: inline-block; vertical-align: middle; background-color: #6e6e6e; padding: 15px; padding-top: 1.5em; border-left: 0px solid #eaeaea; border-right: 14px solid #eaeaea; padding-left: 0px; padding-right: 0px;}
+.Banner.layoutRowStage{display: inline-block; vertical-align: middle; background-color: #6e6e6e; padding: 15px; padding-top: 2.5em; border-left: 0px solid #eaeaea; border-right: 14px solid #eaeaea; padding-left: 0px; padding-right: 0px;}
+/*.layoutRow .layoutRowStage:first-child{border-left: 0px solid white;padding-left: 0px;}*/
+
+#AdminNav a {
+  text-decoration: none;
+  position: relative;
+  color: #3366FF;
+}
+
+#AdminNav a:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 0%;
+  border-left: 2px solid #3366FF;
+  transition: 0.4s;
+}
+
+#AdminNav a:hover:after {
+  height: 100%;
+}
+#AdminNav li{ height: 2em; vertical-align: middle; text-align: left; padding: 0px; padding-left: 4em; margin: 0px; font-size: 18px; }
+#AdminNav li.active a:after { height: 100% }
+#AdminNav a{ color: #302830; }
+
+/*
+.layoutBtn{
+height: 70%; color: white !important; 	background-color: #33B0CC  !important;font-size: 24px;padding: 16px;margin-right: 2em;
+}
+*/
+body{counter-reset: layoutRow; }
+
+.layoutRow{
+position: relative; z-index: 10;
+background-color: #eaeaea;
+margin: 0px;
+min-height: 7em;
+vertical-align: middle; text-align: center; line-height: 100%;
+margin-top: 1em;
+margin-bottom: 1.5em;
+padding: 14px;
+}
+
+.layoutComponentController span.control,
+.layoutComponentController span.control *,
+.layoutComponentController span.control * *
+	{ color: white !important;  }
+.Banner.ComponentLayout{ margin-top: 1em !important; }
+.layoutComponent{ margin-top: 1em; margin-bottom: 2.5em; position: relative; z-index: 20; border: 14px solid #606060; background-color:#fff;}
+.layoutRowController, .layoutComponentController{ height: 37px; background-color: #e0e0e0; color: #D3D3D3; font-size: 14px; vertical-align: top; text-align: left; position: absolute; top: -37px; left: -0px; z-index: 12; padding: 0px;margin: 0px; }
+.layoutComponentController{left: -14px; }
+.layoutRow{ border-radius: 0px; }
+.layoutComponentController span, .layoutRowController span{
+line-height: 37px;
+vertical-align: top;
+padding-left: 1.5em;
+padding-right: 1.5em;
+display: inline-block;
+height: 37px !important;
+border-right: 1px solid #989898;
+color: #2F2F2F;
+}
+.Banner{background-color:#6e6e6e;}
+.layoutComponentController{background-color: #6e6e6e; border-color: #7b7b7b; margin-top: -14px; width: 100%; border-right: 96px; color: white !important; }
+.layoutComponentController span:hover{background-color: #606060; }
+.layoutComponentController span:hover:last-child{background-color: #d30000; }
+.layoutRowController span, .layoutRowController i{ color:black; background-color: #e0e0e0; border-color: #efefef; }
+.layoutRowController span:hover, .layoutRowController i:hover{ background-color: #d1d1d1;}
+.layoutRowController span:hover:last-child{ background-color: #d30000; }
+.ComponentControl:hover{ border: 8px double #acacac; cursor: pointer; }
+
+iframe{
+	max-height: 100%;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: -2px;
+}
+
+#rowSettingsModal, #ComponentLibrary, #BannerComponentLibrary{
+width: auto; left: 50%; right: 5% !important;
+height: 80%;
+border-radius: 5px;
+background-color: #fff;
+position: fixed;
+top: 12%;
+}
+#rowSettingsModal {
+  border: 1px solid white;
+  box-shadow: 0in 0in 0.29166666666667in 0in rgba(0, 0, 0, 0.23);
+}
+.ColumnButtonHack {
+    width: 100%; height: 34px; overflow:hidden; display: inline-block;
+    margin: 0px; margin-bottom: 8px; margin-top: 4px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 14px;
+}
+
+.ColumnButtonHack label{ height: 24px; width: 100%;}
+.ColumnButtonHack label:hover{
+  height: 24px;
+  width: 100%;
+  cursor: pointer;
+  background-color: #cacaca;
+	border: 0px solid #cacaca;
+	border-radius: 4px;
+}
+
+.ColumnButtonHack img{ display: inline-block; vertical-align: top;}
+
+.ColumnFrontEnd{
+    display: inline-block; vertical-align: middle; background-color: white; padding: 15px;
+    border-left: 2px solid #eaeaea;
+    border-right: 2px solid #eaeaea;
+
+}
+
+
+.modal-backdrop {
+  z-index: -1 !important;
+}
+.modal-body{ background-color: #fff; }
+
+.ComponentBtns{
+    height: 5em; line-height: 5em;
+    vertical-align: middle; text-align: center;
+    cursor: pointer;
+    margin-left: -0.2em;
+    margin-right: -0.2em;
+    margin-bottom: 0.5em;
+}
+.ComponentBtns div{ color: black; background-color: #eaeae8;
+    font-size: 15pt;
+    font-weight: bold;
+    border: 1px solid #c7c7c7;
+    border-radius: 3px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
+    height: 100%; width: 100%;
+    padding-left:1em;
+}
+.ComponentBtns i{ color: black; margin-right:0.5em; font-size: 20pt; vertical-align: text-top;}
+.ComponentBtns div:hover{background-color: #e0e0e0; border: 1px solid #c7c7c7; }
+.ComponentBtns div:hover i{ color: black;}
+.layoutRow{padding-right: 0px; }
+
+
+
+
+
+.Control_AddSlide{
+  position: absolute;
+  right: 16px;
+  border: 1px solid white;
+  border-radius: 16px;
+  padding: 0px 8px 2px;
+  font-size: 22px;
+  font-weight: 800;
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+
+  /* Rules below not implemented in browsers yet */
+  -o-user-select: none;
+  user-select: none;
+}
+.Control_AddSlide:hover{
+    background-color: #C3FFC3;
+    cursor: pointer;
+}
+.Control_AddSlide:active{
+    background-color: #FFFF77;
+    cursor: pointer;
+}
+
+
+
+/* actually the heading */
+bodu ul:first-child li:first-child {
+    display: fixed;
+}
+.PreviewButton          {background-color: #75959c;}
+.PreviewButton:hover    {background-color: #75959c;}
+.SaveButton             {background-color: #32b1cc;}
+.SaveButton:hover       {background-color: #3bc5e3;}
+.lgBtn:disabled, .smallBtn:disabled{
+    color: #d0d0d0;
+    background-color: #ababab;
+}
+
+
+.LeadGeneration > .layoutComponentController > span.editComponent,
+.SearchBar > .layoutComponentController > span.editComponent
+{ display: none;}
+.SearchBar.search.col-sm-12{ float: unset; }
+
+.EditSlides{ margin-top: 5em; }
+.EditSlideAccordion .card .row.card-body{ margin-left: 0px !important; }
+.EditSlideAccordion{ position: relative; }
+.EditSlideAccordion .card,
+.EditSlideAccordion .card .card-header,
+.EditSlideAccordion .card .card-header h2{ padding: 0px; margin: 0px; position: relative; z-index: 1000; }
+.EditSlideAccordion .card .card-header h2 > a{position: absolute; top: 1px; right: 2px; display: inline-block; z-index: 1010; background-color: #777; color: white; height: 45px; width: 45px; font-size: 19px; cursor: pointer; line-height: 45px; text-align: center; vertical-align: middle; border-radius: 3px; }
+.EditSlideAccordion .card .card-header h2 > a:hover{ background-color: #d30000;}
+.EditSlideAccordion .card .card-header h2 > a > span{ margin-left: auto; margin-right: auto; }
+.EditSlideAccordion .card { margin-bottom: 1em; }
+.EditSlideAccordion .card .card-header h2{ display: inline-block; height: 100%; width: 100%; text-align: }
+.EditSlideAccordion .card .card-header h2 button{ width:100%; cursor: pointer; height: 100%; text-align: left; color: #000000}
+.EditSlideAccordion .card img{ width: auto;}
+.slider_nav{ display: none; }
+.Banner .addComponentBtn { left: 50%; margin-left: -2em; margin-top: -1em; }
+
+
+#componentSettingsStage.Banner .modal-body > ul.controls > li > button{
+	background-color: #777 !important;
+    position: relative !important;
+    z-index: 10010 !important;
+    top: -25px !important;
+    left: -40px !important;
+    color: white !important;
+}
+
+#ComponentLibrary .modal-body {
+    padding-top: 20px;
+}
+
+#ComponentLibrary .modal-footer button.close {
+    background-color: #a0a0a0;
+    color: white;
+    padding: .375rem 1.4rem;
+    border-radius: 2px;
+    margin-right: 3.2em;
+    line-height: inherit;
+    text-shadow: none;
+    opacity: unset;
+}
+#ComponentLibrary .modal-footer button.close:hover {
+    background-color: #808080;
+    color: white;
+    padding: .375rem 1.4rem;
+    border-radius: 2px;
+    margin-right: 3.2em;
+    line-height: inherit;
+    text-shadow: none;
+    opacity: unset;
+}
+#rowSettingsModal .modal-footer {
+    width: 100%;
+    float: right;
+}
+
+#rowSettingBG .form-group {
+    float: left;
+}
+#rowSettingBG label.control-label.color-overlay {
+    margin-top: 20px;
+}
+#rowSettingBG button.ClearRowBackground {
+    background-color: #d4d4d4;
+    border-color: #d4d4d4;
+    border-radius: 2px;
+    padding: 5px 10px;
+    color: #000;
+}
+.LoadingContain.loading,
+.LoadingContain.loading *{ max-height: 100%; max-width: 100%; display: inline-block; height: 100%; }
+
+.layoutComponentController .LoadingContain.loading{ height: 100%; }
+#componentSettingsModal{
+  top: 0px;
+  bottom: 0px;
+  width: 100% !important;
+  display: block;
+  background-color: transparent;
+  border: none;
+}
+.richTextEdit{
+  width: 100%;
+  height: 14em;
+}
+.InfoRibbon, .TextEmbed, .CleanTextEmbed{ text-align: initial;}
+.layoutComponent.InfoRibbon,
+.layoutComponent.CleanTextEmbed{  background: none; background-color: transparent;  }
+.SearchBar{ padding: 0px; }
+
+.Banner ul .moveComponent{		display: none;	}
+
+
+
+
+
+
+#componentSettingsStage.ContentBlock .modal-content .tab{
+  display: none;
+}
+#componentSettingsStage.ContentBlock .modal-content .tab.active{
+  display: inline-block;
+  width: 100%;
+}
+#componentSettingsStage.ContentBlock .modal-content .tab label{
+  width: 46%;
+  margin: 1%;
+}
+#componentSettingsStage.ContentBlock .modal-content .tab img{
+  width: 100% !important;
+  height: auto !important;
+  cursor: pointer;
+}
+#componentSettingsStage.ContentBlock .modal-nav{
+	cursor: pointer;
+}
+#componentSettingsStage.ContentBlock .modal-nav .active{
+	cursor: pointer;
+}
+#componentSettingsStage.ContentBlock input[type=radio]{
+	width: 0px;
+	height: 0px;
+}
+#componentSettingsStage.ContentBlock input[type=radio]:checked ~ img{
+	border: 2px solid blue;
+}

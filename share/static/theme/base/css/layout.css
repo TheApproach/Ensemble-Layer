@@ -1,0 +1,230 @@
+
+#Stage{
+    padding: 0px;margin: 0px auto;position: absolute;display: block;top: 77px;left: 0px;right: 0px;width: 100%; z-index: 0;
+}
+input:focus:invalid:required {
+  background-color: pink !important;
+}
+input:focus:invalid:required + *::before {  content: "Required field"; color: red; }
+
+
+.layoutRow{ padding: 0px 5%; }
+	nav{border-bottom: 0; height: 77px;}
+	.layoutColumn{ padding-left: 8px; padding-right: 8px; }
+	.layoutColumn > * { margin-top: 0em; margin-bottom: 0em; }
+	.layoutColumn:first-child{ margin-top: 0em !important; }
+	.layoutColumn { margin-bottom: 2em; }
+	.TextEmbed{background-color: #ffffff;
+	border: 1px solid #efefef;padding: 25px 50px;}
+	nav .dropdown-menu{ padding: 0px !important;}
+.rowBackdrop {
+		background-size: cover !important;
+		background-position: center center !important;
+	}
+
+
+	/* .dropdown-menu:hover,
+	// .dropdown-toggle:hover + .dropdown-menu,
+	// .dropdown:hover .dropdown-menu{display: inline-block; !important; } */
+	.nav-link.dropdown-toggle{padding-bottom: 28px;}
+	.dropdown-menu {
+		vertical-align: middle;
+		margin-top: 0px;
+		margin-left: -8px;
+		min-width: 12em;
+		background-color: #f7f7f9 ;
+		color: white;
+		opacity: 1;
+		border-radius: 2px;
+		border: none;
+	}
+	.dropdown-menu li{vertical-align: middle;}
+	.dropdown-menu a {
+		vertical-align: middle;
+		background-color: #f7f7f9;
+		color: #000;
+		opacity: 1.0;
+		padding-top:6px;
+		padding-bottom:6px;
+		font-weight: bold;
+		padding-bottom: .5em;
+	}
+
+	.dropdown-menu a:first-child { margin-top: 0px; }
+	.dropdown-menu a:hover{  background-color: #26B1CE !important; color: white !important;}
+	.navbar-toggler{ padding: 1.10rem 0.75rem; color: #ACACAC;}
+	nav ul, nav li, nav > ul > li, nav > * > ul > li, nav > * > li{ list-style: none;}
+	nav li a{color:#777 !important; font-family: \'Open Sans\',sans-serif; font-size: 14px; padding-top: 34px; padding-bottom: 28px; margin-top:6px;}
+	nav a:hover, nav .active a{color:#32b1cc !important;}
+	nav .nav-item > a.nav-link:first-child{padding-left: 17px;}
+	nav .nav-item > a.nav-link:last-child{padding-right: 8px;}
+
+	.navbar-collapse.collapse ul{
+		display: inline-block !important; float: right;
+		margin-top: -54px;
+		padding-left: 0px;
+	}
+	.navbar-collapse.show ul, .navbar-collapse.show ul li{
+		margin-top: 0px;
+		position:relative;
+		top:0px;
+		float:none;
+		clear:both;
+		width: auto;
+		display: block !important;
+		margin-left: 0px !important;
+		background-color: #f7f7f9;
+		padding: 4px 4px;
+		border-bottom: solid 1px #777;
+		text-align: left;
+		vertical-align: middle;
+		min-width: 12em;
+	}
+	.navbar-collapse.show ul li a{margin-left: 1em; margin-right: 1em;}
+	.navbar-collapse.show ul{border-radius: 4px; display: inline-block !important; padding: 0px; border: solid 2px #777; margin: 0px;}
+
+
+#Navbar{
+background-color:#fff;
+-webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,.31);
+-moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,.31);
+-ms-box-shadow: 0px 4px 10px 0px rgba(0,0,0,.31);
+-o-box-shadow: 0px 4px 10px 0px rgba(0,0,0,.31);
+box-shadow: 0px 4px 10px 0px rgba(0,0,0,.31);
+border-radius: 0;
+}
+
+	#Stage{margin-top: 0px !important;padding-top:0px !important;}
+	#Stage:first-child:first-child:first-child.Banner{padding: 0px; margin: 0px;}
+
+
+
+
+.Youtube > div{
+	float: none;
+	clear: both;
+	width: 100%;
+	position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 25px;
+	height: 0;
+}
+.Youtube > div > iframe {
+	width: 100%; height: 100%;
+	top: 0;left: 0;
+	position: absolute;
+	border: 0px;
+}
+
+.agentProfileForum { background-color: #fff;}
+DOCTYPE, html, body, #wrapper, #Stage, .layoutRow{
+	background-color: #fafafa;
+}
+#burger{
+	visibility: hidden;
+	padding: 8px;
+	margin-right: 20px;
+	margin-top: 7px;
+ }
+ .navMenu {
+	padding-top: .8rem;
+ }
+
+#Navbar{
+position:fixed; z-index:20;
+top:0px; left: 0px;
+width: 100%; height: 77px;
+margin: 0px; padding: 11px;
+padding-right: 6%;
+}
+
+
+@media only screen and (max-width: 960px) {
+	#SuiteBurger.show ul, #SuiteBurger.show ul li{ visibility: visible !important; border: none;}
+	#burger{ visibility: visible; float: right;}
+	#burger:hover{ background-color: #32b1cc !important; }
+	#SuiteBurger{ overflow: hidden; }
+	#SuiteBurger ul li{ display: block !important; visibility: hidden !important; border: none;}
+	#SuiteBurger ul, #SuiteBurger.show ul { position: absolute; top: 77px; margin-top: 0px; left: 0px; width: 100%; border-radius: 0px; font-weight: bold;}
+	#SuiteBurger.collapsing ul li{ display: block !important; }
+}
+
+.toggleDrop{ display: inline-block; }
+DOCTYPE, html, body{ height: 100%; width: 100%; margin: 0px; padding: 0px; }
+
+.layoutRow.wideFit{ margin-top:0px;}
+
+/* .layoutRow{ z-index: 5; } */
+.rowBackdrop
+{
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+	z-index: 4;
+}
+.videoRowBackdrop{
+position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1000;
+  overflow: hidden;
+}
+.layoutColumn{ z-index: 10;}
+
+.thumbnail .caption.panel-block{ height: 13em; }
+
+.LoadingContain.loading{ max-height: 100%; width: auto; }
+.lead_generation .form-control {
+    border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+.list-group-item:last-child {
+	border-top-right-radius: .25rem;
+}
+
+
+#footer{
+ text-align: right;
+ padding: 3rem 5rem;
+ position: relative;
+ display: inline-block;
+ background-color: #4C4C4C;
+ color: #D0D0D0;
+ font-family: "Open Sans",  \'Open Sans\', Sans, sans-serif;
+ font-weight: 350;
+ font-size: 14px;
+}
+
+
+#footer a{ color: #32b1cc; }
+
+#brand-logo{
+    height: 42px; width: auto; margin-left: 24%; padding-left: 8px; margin-top: 4px;
+}
+nav .nav-item{
+    margin-left: 2.938em;
+}
+
+.ListingPageHeader{
+    display: none;
+}
+#mls_disclaimer{
+    display: block;
+    clear: both;
+}
+.Base_Theme #mls_disclaimer{
+    padding-left: 5%;
+    padding-right: 5%;
+}

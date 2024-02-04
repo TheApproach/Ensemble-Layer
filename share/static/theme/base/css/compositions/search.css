@@ -1,0 +1,7 @@
+
+.twitter-typeahead > .tt-menu .tt-dataset.tt-dataset-places{
+	display: none !important;
+}
+.twitter-typeahead > .twitter-typeahead > .tt-menu .tt-dataset.tt-dataset-places{
+	display: inline-block !important;
+}

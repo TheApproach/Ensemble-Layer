@@ -1,0 +1,164 @@
+i.fa:hover, i.fa@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,500,550,600,700,800,900);
+*{ font-family: \'Open Sans\', 'Open Sans', Open Sans; }
+h1 {
+	font-size: 24px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+    margin-right: 2em;
+}
+h3 {
+	font-size: 14px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 15.4px;
+}
+p {
+	font-size: 16px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 1.5em;
+}
+blockquote {
+	font-size: 21px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 30px;
+}
+pre {
+	font-size: 13px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 18.5714px;
+}
+
+.sheer {
+	margin: 0px;
+	padding: 0px;
+}
+.wideFit { width: 100%; }
+.tallFit { height: 100%; }
+
+.btn-primary{background-color: #32b1cc; border-color: #1091ac;}
+.btn-warning{background-color: #a0a0a0; border-color: #808080;}
+.btn-primary:hover{background-color: #1091ac; border-color: #32b1cc;}
+.btn-warning:hover{background-color: #808080; border-color: #a0a0a0;}
+.btn-default{border-radius: 2px;}
+
+
+
+hr{ width: 100%; color: #E8E8E8; height: 1px; }
+html, body, doctype { height: 100%; margin: 0px; padding: 0px; }
+html, body, doctype{ height: 100%; width: 100%; z-index: 0; position: absolute; top: 0px; left: 0px; }
+
+.panel{ position: relative;}
+.ComponentControl{ padding: 4px; }
+.draggable:hover{ border: 4px dotted #77C; cursor: move; z-index: 32767; }
+
+.ui-draggable-dragging
+{
+	border: 4px double blue;
+	z-index: 32767;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	/*filter: alpha(opacity=50);*/
+	-moz-opacity: 0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
+}
+.drop-hover, .droppable-hover{ background-color: #ffa; border: 4px double black !important; }
+
+#addRow{
+position: absolute; left: 0; top: 0;
+margin-left: -12em;
+}
+#layoutCanvas{ padding-bottom: 42px; padding-top:3em;}
+
+.addComponentBtn, .addRowBtn, .showComponentLib, #addRowBtn, #addSelectRowBtn{ vertical-align: middle; line-height: 26px; text-align: center; height: 38px; border-radius: 5px; background-color: #26B1CE; padding: 6px 12px; font-size: 24px;   color: white; display: inline-block;}
+.smallBtn{ font-size: 12px; height: 33px; border-radius: 5px; color: white; }
+.lgBtn{ font-size: 13px; height: 38px; border-radius: 5px; color: white; }
+i.fa:hover, i.fa, button, button:hover { color: white;  }
+
+#addRowBtn:hover, #addSelectRowBtn:hover{ background-color: #06719E; }
+
+li{ list-style: none; }
+
+#Nav{ text-align: center; margin-top: 38px; }
+#ContentHeader{ margin-top: 38px; }
+
+.layoutRowStage{display: inline-block; vertical-align: middle; background-color: white; padding: 15px; padding-top: 1.5em; border-left: 0px solid #eaeaea; border-right: 14px solid #eaeaea; padding-left: 0px; padding-right: 0px;}
+/*.layoutRow .layoutRowStage:first-child{border-left: 0px solid white;padding-left: 0px;}*/
+
+#Nav a {
+  text-decoration: none;
+  position: relative;
+  color: #3366FF;
+}
+
+#Nav a:after {
+  content: \'\';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 0%;
+  border-left: 2px solid #3366FF;
+  transition: 0.4s;
+}
+
+#Nav a:hover:after {
+  height: 100%;
+}
+#Nav li{ height: 2em; vertical-align: middle; text-align: left; padding: 0px; padding-left: 4em; margin: 0px; font-size: 18px; }
+#Nav li.active a:after { height: 100% }
+#Nav a{ color: #302830; }
+
+/*
+.layoutBtn{
+height: 70%; color: white !important; 	background-color: #33B0CC  !important;font-size: 24px;padding: 16px;margin-right: 2em;
+}
+*/
+body{counter-reset: layoutRow; }
+#ComponentLibrary{ border: solid 1px #fff; box-shadow: 0in 0in 0.29166666666667in 0in rgba(0, 0, 0, 0.23); border-radius: 5px;}
+.modal-backdrop {
+.Banner{ margin-top: 0px; !important;}
+#Stage{padding-top; 0px; margin-top: 0px; }
+//  z-index: 10 !important;
+  display: none !important;
+}
+.modal-body, .modal-content,.modal-dialog, .modal, .modal-header, .modal-footer {
+	background-color: #fff;
+	/*border: none;*/
+	border-radius: 0px; }
+.modal{
+	border: 1px solid black;
+}
+#rowSettingsModal .LayoutRow ul.nav.nav-tabs {
+    border-bottom: 0px solid #ddd;
+    margin-top: 5px;
+}
+#rowSettingsModal .nav-tabs .nav-link {
+    border: 0px solid transparent;
+}
+#rowSettingsModal .modal-header h4 {
+    margin-left: 15px;
+    padding: 7px 0px;
+}
+#rowSettingsModal .nav-tabs .nav-link.active {
+    color: #28b1ce;
+}
+#rowSettingsModal a.nav-link {
+    color: #696969;
+}
+#componentSettingsStage button.btn.adminCancelBtn {
+    color: #2f2f2f;
+    background-color: #d6d6d6;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}

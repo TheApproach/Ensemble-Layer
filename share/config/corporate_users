@@ -1,0 +1,16 @@
+myDNS:ioVg%Ky31ERAM7*kr3f9fhxFKBzqEhsih*VUi$#P0*x2HJD::mysystem:myspace system operator:/usr/share/myspace/system/myDNS:/sbin/nologin
+myEdge:ioVg%Ky31ERAM7*kr3f9fhxFKBzqEhsih*VUi$#P0*x2HJD::mysystem:myspace system operator:/usr/share/myspace/system/myEdge:/sbin/nologin
+myDB:ioVg%Ky31ERAM7*kr3f9fhxFKBzqEhsih*VUi$#P0*x2HJD::mysystem:myspace system operator:/usr/share/myspace/system/myDB:/sbin/nologin
+myStaging:ioVg%Ky31ERAM7*kr3f9fhxFKBzqEhsih*VUi$#P0*x2HJD::mysystem:myspace system operator:/usr/share/myspace/system/myStaging:/sbin/nologin
+mySchedule:ioVg%Ky31ERAM7*kr3f9fhxFKBzqEhsih*VUi$#P0*x2HJD::mysystem:myspace system operator:/usr/share/myspace/system/mySchedule:/sbin/nologin
+myComponent:ioVg%Ky31ERAM7*kr3f9fhxFKBzqEhsih*VUi$#P0*x2HJD::mysystem:myspace system operator:/usr/share/myspace/system/myComponent:/sbin/nologin
+server:X8ojapwaPo^IHQbQ$UL3WDc6%w@$72y^6sUfam$0c&a*@!F::server:general server user::/sbin/nologin
+banker:::server:git user:/home/banker:/bin/bash
+garet:F9a7buUlmFVC1fmE%oZkCnydneUxN5%Z5fa@Fke$3b&NvXN::superuser:CTO:/home/garet:/bin/zsh
+tom:^4gby8NyU96gHfX$&*HmQnye7@xZk4KO3t4er7C1mmkvyMi::superuser:Coolest Dev:/home/tom:/bin/zsh
+fullstack:poc#Ma4$cLEsIcyRgeMOUtPHWvhR4&vM^exTPc4#QudkxbY::fullstack:general fullstack user:/home/fullstack:/bin/zsh
+backend:poc#Ma4$cLEsIcyRgeMOUtPHWvhR4&vM^exTPc4#QudkxbY::backend:general backend user/home/backend::/bin/zsh
+frontend:poc#Ma4$cLEsIcyRgeMOUtPHWvhR4&vM^exTPc4#QudkxbY::frontend:general frontend user:/home/frontend:/bin/zsh
+database:poc#Ma4$cLEsIcyRgeMOUtPHWvhR4&vM^exTPc4#QudkxbY::database:general database user:/home/database:/bin/zsh
+devops:poc#Ma4$cLEsIcyRgeMOUtPHWvhR4&vM^exTPc4#QudkxbY::devops:general devops user:/home/devops:/bin/zsh
+designer:poc#Ma4$cLEsIcyRgeMOUtPHWvhR4&vM^exTPc4#QudkxbY::designer:general designer user:/home/designer:/bin/zsh
