@@ -7,123 +7,112 @@
       ansible.builtin.group:
         name: superuser
         state: present
-        gid: 70000
-
-    - name: Add group "suitesystem" to remote server
-      ansible.builtin.group:
-        name: suitesystem
-        state: present
-        gid: 70001
+        gid: 81919
 
     - name: Add group "fullstack" to remote server
       ansible.builtin.group:
         name: fullstack
         state: present
-        gid: 70002
+        gid: 81917
 
-    - name: Add group "backend" to remote server
+    - name: Add group "work" to remote server
       ansible.builtin.group:
-        name: backend
+        name: work
         state: present
-        gid: 70003
+        gid: 81916
 
-    - name: Add group "database" to remote server
+    - name: Add group "render" to remote server
       ansible.builtin.group:
-        name: database
+        name: render
         state: present
-        gid: 70004
+        gid: 81916
 
-    - name: Add group "devops" to remote server
+    - name: Add group "resource" to remote server
       ansible.builtin.group:
-        name: devops
+        name: resource
         state: present
-        gid: 70005
+        gid: 81915
 
-    - name: Add group "designer" to remote server
+    - name: Add group "component" to remote server
       ansible.builtin.group:
-        name: designer
+        name: component
         state: present
-        gid: 70006
+        gid: 81915
 
-    - name: Add group "server" to remote server
+    - name: Add group "composition" to remote server
       ansible.builtin.group:
-        name: server
+        name: composition
         state: present
-        gid: 70007
+        gid: 81913
 
-    - name: Add group "frontend" to remote server
+    - name: Add group "service" to remote server
       ansible.builtin.group:
-        name: frontend
+        name: service
         state: present
-        gid: 70008
+        gid: 81912
+
+    - name: Add group "instrument" to remote server
+      ansible.builtin.group:
+        name: instrument
+        state: present
+        gid: 81911
+
+    - name: Add group "ensemble" to remote server
+      ansible.builtin.group:
+        name: ensemble
+        state: present
+        gid: 81914
+
+    - name: Add group "orchestra" to remote server
+      ansible.builtin.group:
+        name: orchestra
+        state: present
+        gid: 81918
 
     - name: Create user Garet
       ansible.builtin.user:
         name: garet
         state: present
         comment: "Garet Claborn"
-        createhome: true
+        createhome: false
         group: sudo
         groups:
           - superuser
           - fullstack
-        uid: 65536
+          - security
+          - ensemble
+          - orchestra
+          - render
+          - resource
+          - component
+          - composition
+          - service
+          - work
+        uid: 73824
 
     - name: Create user Tom
       ansible.builtin.user:
         name: tom
         state: present
         comment: "Tom Samwel"
-        createhome: true
+        createhome: false
         group: sudo
         groups:
           - superuser
           - fullstack
-        uid: 65537
+          - security
+        uid: 73825
 
     - name: Create user me
       ansible.builtin.user:
-        name: suitespace
+        name: me
         state: present
-        comment: "suitespace"
+        comment: "myhome"
         createhome: true
-        group: suitesystem
+        group: orchestra
         groups:
-        uid: 65538
+          - orchestra
+          - ensemble
+          - instrument
+        uid: 81920
 
-    - name: Create user nick
-      ansible.builtin.user:
-        name: nick
-        state: present
-        comment: "nick's user"
-        createhome: true
-        group:
-        groups:
-          - designer
-          - frontend
-        uid: 65540
-
-    - name: Create user Sean
-      ansible.builtin.user:
-        name: sean
-        state: present
-        comment: "sean's user"
-        createhome: true
-        group:
-        groups:
-          - designer
-          - frontend
-          - database
-        uid: 65541
-
-    - name: Create user John
-      ansible.builtin.user:
-        name: john
-        state: present
-        comment: "John's user"
-        createhome: true
-        group:
-        groups:
-          - fullstack
-          - database
-        uid: 65542

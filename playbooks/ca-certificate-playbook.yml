@@ -10,7 +10,7 @@
 
     - name: Copy the root certificate file
       ansible.builtin.copy:
-        src: "/home/ubuntu/suite_root.crt"
+        src: "/home/ubuntu/my_home_root.crt"
         dest: /usr/local/share/ca-certificates/
         owner: root
         group: root
