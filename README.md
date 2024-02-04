@@ -4,12 +4,14 @@
 
 The repository is structured as follows:
 
+```
 ansible
 ├── inventories
 ├── playbooks
 ├── roles
 │   └── role_template
 └── readme.md
+```
 
 It includes a number of easy-to-use playbooks and a primary role for infrastructure servers.
 
