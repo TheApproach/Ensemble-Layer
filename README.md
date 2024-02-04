@@ -23,7 +23,7 @@ The only dependency is Ansible and its dependencies. Please note that the Ansibl
 
 ## Getting Started
 
-1. Pull the repo: `git clone https://git.orchestrationsyndicate.com/Approach-Ensemble/Approach-Ensemble.git`.
+1. Pull the repo: `git clone https://github.com/TheApproach/Ensemble-Layer.git`.
 2. Install Ansible. Here's a guide for [Ubuntu](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-ubuntu) users.
 3. You can then run the playbooks. For example, to install the CA certificate, you can use the command:
 
@@ -39,4 +39,4 @@ We adhere to Ansible's default naming conventions and best practices. For roles,
 
 In case of issues, it's smart to first run the ping-playbook to test the connections. This playbook will help you determine if there are connectivity issues.
 
-For any other issues or queries, please reach out to [Tom Samwel](mailto:tom@suiteux.com) or [Garet Claborn](mailto:approach-help@orchestrationsyndicate.com).
+For any other issues or queries, please reach out to the [Approach Mailing List](mailto:approach@orchestrationsyndicate.com).
