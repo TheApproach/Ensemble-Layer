@@ -1,4 +1,4 @@
-#  Todo (are these actually already done?)
+#  Todo
 
     • Continue with attaching the Gluster cluster. Update references to reflect new location
         • /usr/share/my.home on all containers, VMs, instances and boxes
