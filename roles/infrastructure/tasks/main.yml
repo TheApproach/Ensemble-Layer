@@ -25,15 +25,15 @@
 
 
 # ROOT CA CERTIFICATE
-# - name: Root CA Certificate
-#   ansible.builtin.include_tasks: ca-certificate.yml
+- name: Root CA Certificate
+  ansible.builtin.include_tasks: ca-certificate.yml
 
 # FIREWALL
 - name: Firewall configuration
   ansible.builtin.include_tasks: firewall.yml
 
 # DNS
-# TODO: BUG: dns appears to be broken
+# TODO: BUG: dns appears to be broken. Need to confige instances to recognize internal DNS ips
 - name: Add domain-name-servers line to dhclient.conf
   become: true
   become_user: root
@@ -45,9 +45,9 @@
     state: present
 # END DNS
 
-# SUITESHARE
-- name: SuiteShare
-  ansible.builtin.include_tasks: suiteshare.yml
+# Gluster SHARE
+- name: Gluster Share
+  ansible.builtin.include_tasks: glustershare.yml
 
 # WEB STACK
 - name: Web Stack
