@@ -26,14 +26,14 @@
 - name: Check if the directory exists
   become: true
   ansible.builtin.stat:
-    path: "{{ suiteshare_dir }}"
+    path: "{{ share_dir }}"
   register: dir_result
 
-- name: Create suiteshare_dir directory
+- name: Create share_dir directory
   become: true
   when: dir_result.stat.exists == false
   ansible.builtin.file:
-    path: "{{ suiteshare_dir }}"
+    path: "{{ share_dir }}"
     state: directory
     owner: 65538
     group: 70001
@@ -55,11 +55,11 @@
 #     update_cache: yes
 
 
-- name: Mount GlusterFS volume at suiteshare_dir
+- name: Mount GlusterFS volume at share_dir
   become: true
   ansible.posix.mount:
-    path: "{{ suiteshare_dir }}"
-    src: suiteshare.suitespace.corp:/SuiteShare
+    path: "{{ share_dir }}"
+    src: share.my.home:/Storage
     fstype: glusterfs
     opts: defaults,acl,_netdev
     state: mounted
@@ -71,9 +71,9 @@
 #   ansible.builtin.blockinfile:
 #     path: /etc/fstab
 #     block: |
-#       # SuiteShare Gluster Cluster
-#       suiteshare.suitespace.corp:/SuiteShare {{ suiteshare_dir }}    ext4    glusterfs defaults,acl,_netdev 0 0
-#     marker: "# SuiteShare Gluster Cluster"
+#       # Storage Gluster Cluster
+#       share.my.home:/Storage {{ share_dir }}    ext4    glusterfs defaults,acl,_netdev 0 0
+#     marker: "# Storage Gluster Cluster"
 
 - name: Reboot
   become: true
@@ -87,9 +87,9 @@
     post_reboot_delay: 30
     test_command: uptime
 
-# - name: Set ownership of suiteshare_dir to 65538:70001
+# - name: Set ownership of share_dir to 65538:70001
 #   become: true
 #   ansible.builtin.file:
-#     path: "{{ suiteshare_dir }}"
+#     path: "{{ share_dir }}"
 #     owner: 65538
 #     group: 70001
