@@ -1,0 +1,39 @@
+---
+- name: Template Keycloak client configuration based on Netbird endpoints
+  template:
+    src: "{{ keycloak_client_template }}"
+    dest: "/tmp/keycloak_client.json"
+  vars:
+    api_url: "{{ netbird_api_url }}"
+    client_id: "{{ netbird_client_id }}"
+    client_secret: "{{ netbird_client_secret }}"
+
+- name: Create Keycloak session
+  uri:
+    url: "https://portal.my.home/auth/realms/master/protocol/openid-connect/token"
+    method: POST
+    body: "username={{ keycloak_admin_user }}&password={{ keycloak_admin_password }}&grant_type=password&client_id=admin-cli"
+    body_format: form-urlencoded
+    validate_certs: no
+    return_content: yes
+  register: login_session
+  no_log: true  # Do not log sensitive information
+
+- name: Extract access token from session response
+  set_fact:
+    access_token: "{{ (login_session.json.access_token) }}"
+
+- name: Create or update Keycloak client based on Netbird configuration
+  uri:
+    url: "https://portal.my.home/auth/admin/realms/{{ keycloak_realm }}/clients"
+    method: POST
+    body: "{{ lookup('file', '/tmp/keycloak_client.json') }}"
+    body_format: json
+    headers:
+      Authorization: "Bearer {{ access_token }}"
+    status_code: [201, 204]
+    validate_certs: no
+
+- name: Notify the user that Keycloak is configured with Netbird endpoints
+  debug:
+    msg: "Keycloak has been successfully configured with Netbird endpoints."
