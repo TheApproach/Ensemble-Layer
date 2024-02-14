@@ -1,0 +1,94 @@
+---
+- name: Configure PowerDNS servers
+  hosts: all
+  become: true
+  vars:
+    pdns_backends:
+      - name: "mariadb"
+    pdns_recursor: false
+    pdns_authoritative: true
+    pdns_webserver: true
+    pdns_webserver_address: '0.0.0.0'
+    pdns_webserver_allow_from: '0.0.0.0/0'
+    pdns_api: true
+    pdns_api_key: 'your-api-key'
+    pdns_gmysql_host: 'localhost'
+    pdns_gmysql_user: 'pdns'
+    pdns_gmysql_password: 'your-db-password'
+    pdns_gmysql_dbname: 'pdns'
+    pdns_set_zones:
+      - name: 'home'
+        kind: 'Native'
+        nameservers:
+          - 'ns1.home.'
+      - name: 'private'
+        kind: 'Native'
+        nameservers:
+          - 'ns1.private.'
+      - name: 'corp'
+        kind: 'Native'
+        nameservers:
+          - 'ns1.corp.'
+      - name: 'lan'
+        kind: 'Native'
+        nameservers:
+          - 'ns1.lan.'
+    pdns_install_admin: true
+    pdns_admin_git_url: 'https://github.com/PowerDNS-Admin/PowerDNS-Admin.git'
+    pdns_admin_path: '/opt/powerdns-admin'
+    pdns_admin_secret_key: 'your-secret-key'
+    pdns_admin_sqla_db_user: 'pdnsadmin'
+    pdns_admin_sqla_db_password: 'your-pdnsadmin-db-password'
+    pdns_admin_sqla_db_name: 'pdnsadmin'
+    pdns_admin_sqla_db_host: '127.0.0.1'
+
+  tasks:
+    - name: Install MariaDB server
+      ansible.builtin.package:
+        name: mariadb-server
+        state: present
+
+    - name: Start MariaDB service
+      ansible.builtin.service:
+        name: mariadb
+        state: started
+        enabled: yes
+
+    - name: Create PowerDNS database
+      mysql_db:
+        name: "{{ pdns_gmysql_dbname }}"
+        state: present
+
+    - name: Create PowerDNS user
+      mysql_user:
+        name: "{{ pdns_gmysql_user }}"
+        password: "{{ pdns_gmysql_password }}"
+        priv: '{{ pdns_gmysql_dbname }}.*:ALL'
+        state: present
+
+    - name: Deploy PowerDNS Authoritative Server
+      include_role:
+        name: pdns-ansible
+        tasks_from: authoritative
+
+    - name: Deploy PowerDNS Admin
+      include_role:
+        name: pdns-ansible
+        tasks_from: admin
+
+    - name: Configure PowerDNS recursor on other instances
+      include_role:
+        name: pdns-ansible
+        tasks_from: recursor
+      when: inventory_hostname in ['nameserver-01.system-00.my.home', 'nameserver-02.system-00.infrastructure.my.home']
+
+    - name: Set up load balancer for PowerDNS servers
+      include_role:
+        name: pdns-ansible
+        tasks_from: loadbalancer
+      vars:
+        load_balancer_domain: 'ns.my.home'
+        load_balancer_members:
+          - 'nameserver-01.system-00.my.home'
+          - 'nameserver-02.system-00.infrastructure.my.home'
+      when: inventory_hostname == 'nameserver-02.system-00.infrastructure.my.home'

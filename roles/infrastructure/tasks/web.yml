@@ -165,4 +165,127 @@
     state: reloaded
   become: true
   become_user: root
+
+# name: Replace NGINX with Caddy
+- name: Replace NGINX with Caddy
+  ansible.builtin.apt:
+    name: caddy
+    state: present
+  become: true
+  become_user: root
+
+# Create PHP socket for project name
+
+# name: Set PHP socket variable
+- name: Set PHP socket variable
+  set_fact:
+    php_socket: "/var/run/php/{{ project_name }}.sock"
+
+# Add variable to NGINX storing the location of the socket in nginx.conf
+
+# name: Add PHP socket location to NGINX variable
+- name: Add PHP socket location to NGINX variable
+  set_fact:
+    nginx_php_socket: "{{ php_socket }}"
+
+# Add an include line to nginx.conf to import .conf from the suite-share
+
+# name: Add include line to nginx.conf
+- name: Add include line to nginx.conf
+  ansible.builtin.lineinfile:
+    path: /etc/nginx/nginx.conf
+    insertafter: "^(http {)"
+    line: "    include /usr/share/suitespace/config/nginx/*.conf;"
+
+# Make sure NGINX and PHP-FPM services are both enabled
+
+# name: Ensure NGINX service is enabled
+- name: Ensure NGINX service is enabled
+  ansible.builtin.service:
+    name: nginx
+    enabled: true
+    state: started
+  become: true
+  become_user: root
+
+# name: Ensure PHP-FPM service is enabled
+- name: Ensure PHP-FPM service is enabled
+  ansible.builtin.service:
+    name: "php8.2-fpm"
+    enabled: true
+    state: started
+  become: true
+  become_user: root
+
+# Enable NGINX and PHP-FPM services
+
+# name: Enable NGINX service
+- name: Enable NGINX service
+  ansible.builtin.service:
+    name: nginx
+    enabled: true
+  become: true
+  become_user: root
+
+# name: Enable PHP-FPM service
+- name: Enable PHP-FPM service
+  ansible.builtin.service:
+    name: "php8.2-fpm"
+    enabled: true
+  become: true
+  become_user: root
+
+# Start NGINX and PHP-FPM services
+
+# name: Start NGINX service
+- name: Start NGINX service
+  ansible.builtin.service:
+    name: nginx
+    state: started
+  become: true
+  become_user: root
+
+# name: Start PHP-FPM service
+- name: Start PHP-FPM service
+  ansible.builtin.service:
+    name: "php8.2-fpm"
+    state: started
+  become: true
+  become_user: root
+
+# Restart NGINX and PHP-FPM services
+
+# name: Restart NGINX service
+- name: Restart NGINX service
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+  become: true
+  become_user: root
+
+# name: Restart PHP-FPM service
+- name: Restart PHP-FPM service
+  ansible.builtin.service:
+    name: "php8.2-fpm"
+    state: restarted
+  become: true
+  become_user: root
+
+# Stop NGINX and PHP-FPM services
+
+# name: Stop NGINX service
+- name: Stop NGINX service
+  ansible.builtin.service:
+    name: nginx
+    state: stopped
+  become: true
+  become_user: root
+
+# name: Stop PHP-FPM service
+- name: Stop PHP-FPM service
+  ansible.builtin.service:
+    name: "php8.2-fpm"
+    state: stopped
+  become: true
+  become_user: root
 ## END WEB STACK

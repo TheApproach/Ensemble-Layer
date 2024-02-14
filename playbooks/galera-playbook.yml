@@ -1,0 +1,112 @@
+---
+- name: Setup infrastructure options
+  hosts: all
+  become: true
+  vars_prompt:
+    - name: galera_cluster_install
+      prompt: "Do you want to install a 3x Galera cluster? (yes/no)"
+      private: no
+      default: "no"
+
+  tasks:
+    - name: Install a 3x Galera Cluster
+      block:
+        - name: Install MariaDB and Galera server on all nodes
+          yum:
+            name:
+              - MariaDB-server
+              - galera
+              - rsync
+            state: present
+          when: galera_cluster_install == "yes"
+
+        - name: Configure the Galera Cluster on the first node
+          template:
+            src: galera.cnf.j2
+            dest: /etc/my.cnf.d/galera.cnf
+          when: inventory_hostname == "galera_node_1" and galera_cluster_install == "yes"
+
+        - name: Initialize Galera Cluster on the first node
+          command: galera_new_cluster
+          when: inventory_hostname == "galera_node_1" and galera_cluster_install == "yes"
+          notify: restart mariadb
+
+        - name: Join Galera Cluster for remaining nodes
+          command: systemctl start mariadb
+          when: inventory_hostname in ["galera_node_2", "galera_node_3"] and galera_cluster_install == "yes"
+          notify: restart mariadb
+      when: galera_cluster_install == "yes"
+
+    - name: Install Single MariaDB
+      yum:
+        name: MariaDB-server
+        state: present
+      when: galera_cluster_install == "no"
+
+    - name: Install Gitea to git.my.home
+      block:
+        - name: Download and install Gitea
+          get_url:
+            url: https://dl.gitea.io/gitea/1.12.3/gitea-1.12.3-linux-amd64
+            dest: /usr/local/bin/gitea
+            mode: '0755'
+
+        - name: Create Gitea system service
+          template:
+            src: gitea.service.j2
+            dest: /etc/systemd/system/gitea.service
+
+        - name: Start and enable Gitea service
+          systemd:
+            name: gitea
+            enabled: yes
+            state: started
+
+    - name: Install Keycloak to portal.my.home
+      block:
+        - name: Download and install Keycloak
+          unarchive:
+            src: https://downloads.jboss.org/keycloak/10.0.2/keycloak-10.0.2.tar.gz
+            dest: /opt/keycloak
+            remote_src: yes
+          become: yes
+
+        - name: Configure Keycloak as a service
+          template:
+            src: keycloak.service.j2
+            dest: /etc/systemd/system/keycloak.service
+
+        - name: Start and enable Keycloak service
+          systemd:
+            name: keycloak
+            enabled: yes
+            state: started
+
+    - name: Install Netbird to connect.my.home
+      block:
+        - name: Download and install Netbird
+          get_url:
+            url: https://github.com/netbirdio/netbird/releases/download/v0.1/netbird-0.1-linux-amd64.tar.gz
+            dest: /opt/netbird.tar.gz
+            mode: '0755'
+          unarchive:
+            src: /opt/netbird.tar.gz
+            dest: /opt/netbird
+            remote_src: yes
+
+        - name: Configure Netbird as a service
+          template:
+            src: netbird.service.j2
+            dest: /etc/systemd/system/netbird.service
+
+        - name: Start and enable Netbird service
+          systemd:
+            name: netbird
+            enabled: yes
+            state: started
+
+  handlers:
+    - name: restart mariadb
+      service:
+        name: mariadb
+        state: restarted

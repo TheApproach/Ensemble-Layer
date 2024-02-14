@@ -1,0 +1,99 @@
+---
+- name: Setup Step-CA on Secure Private
+  hosts: secure_hosts
+  become: true
+  vars:
+    step_ca_version: "0.15.15"
+    secure_private_ip: "10.7.13.37"
+    offline_root_password: "your-offline-root-password"
+    intermediate_ca_password: "your-intermediate-ca-password"
+    ansible_user_home: "/home/ansible"
+    offline_root_ca_path: "{{ ansible_user_home }}/offline-root"
+    intermediate_ca_path: "{{ ansible_user_home }}/intermediate-ca"
+    online_ca_path: "{{ ansible_user_home }}/step-ca"
+    step_ca_config_dir: "/etc/step-ca"
+
+  tasks:
+    - name: Install Step-CA binary
+      get_url:
+        url: "https://github.com/smallstep/certificates/releases/download/v{{ step_ca_version }}/step-ca_{{ step_ca_version }}_linux_amd64.tar.gz"
+        dest: "/tmp/step-ca.tar.gz"
+      register: step_ca_download
+
+    - name: Create directory for Step-CA
+      file:
+        path: "{{ online_ca_path }}"
+        state: directory
+      when: step_ca_download.changed
+
+    - name: Extract Step-CA tarball
+      unarchive:
+        src: "/tmp/step-ca.tar.gz"
+        dest: "{{ online_ca_path }}"
+        remote_src: yes
+      when: step_ca_download.changed
+
+    - name: Initialize offline root CA
+      shell: |
+        cd {{ offline_root_ca_path }}
+        step ca init --root={{ offline_root_ca_path }}/root_ca.crt --key={{ offline_root_ca_path }}/root_ca_key --password-file=<password-file> --no-db
+      args:
+        creates: "{{ offline_root_ca_path }}/root_ca_key"
+      vars:
+        password_file_content: "{{ offline_root_password }}"
+      no_log: true
+
+    - name: Initialize intermediate CA
+      shell: |
+        cd {{ intermediate_ca_path }}
+        step ca init --name "Intermediate CA" --provisioner admin --provisioner-password-file=<provisioner-password-file> --issuer={{ offline_root_ca_path }}/root_ca.crt --issuer-key={{ offline_root_ca_path }}/root_ca_key --issuer-password-file=<issuer-password-file> --dns=conductor.orchestra.private --address={{ secure_private_ip }}:443 --no-db
+      args:
+        creates: "{{ intermediate_ca_path }}/intermediate_ca.crt"
+      vars:
+        provisioner_password_file_content: "{{ intermediate_ca_password }}"
+        issuer_password_file_content: "{{ offline_root_password }}"
+      no_log: true
+
+    - name: Create Step-CA configuration directory
+      file:
+        path: "{{ step_ca_config_dir }}"
+        state: directory
+
+    - name: Copy CA certificates and keys to Step-CA configuration directory
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ step_ca_config_dir }}/{{ item.dest }}"
+        mode: 0600
+      loop:
+        - { src: "{{ offline_root_ca_path }}/root_ca.crt", dest: "root_ca.crt" }
+        - { src: "{{ offline_root_ca_path }}/root_ca_key", dest: "root_ca_key" }
+        - { src: "{{ intermediate_ca_path }}/intermediate_ca.crt", dest: "intermediate_ca.crt" }
+        - { src: "{{ intermediate_ca_path }}/intermediate_ca_key", dest: "intermediate_ca_key" }
+      no_log: true
+
+    - name: Copy Step-CA configuration files
+      copy:
+        src: "{{ online_ca_path }}/config/"
+        dest: "{{ step_ca_config_dir }}/"
+        mode: 0755
+        directory_mode: 0755
+
+    - name: Notify user after generating root certificate keypair
+      debug:
+        msg: "Root certificate keypair has been generated."
+
+    - name: Setup CA with menu and questions
+      expect:
+        command: step ca setup
+        responses:
+          'Choose the CA configuration file': '{{ step_ca_config_dir }}/ca.json'
+          'Choose the directory where your intermediate identity keys and certificates': '{{ step_ca_config_dir }}'
+          'Please enter the password to decrypt the intermediate': '{{ intermediate_ca_password }}'
+
+    - name: Install intermediate CA certificates on conductor.orchestra.private
+      shell: |
+        step ca install {{ step_ca_config_dir }}/intermediate_ca.crt --ca-url https://conductor.orchestra.private --root {{ step_ca_config_dir }}/root_ca.crt
+      delegate_to: "{{ item }}"
+      loop:
+        - ca-00.orchestra.private
+        - ca-01.orchestra.private

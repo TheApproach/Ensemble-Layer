@@ -1,0 +1,27 @@
+---
+- name: Retrieve Keycloak realm information
+  uri:
+    url: "https://portal.my.home/auth/realms/YourRealm"
+    method: GET
+    return_content: yes
+  register: keycloak_realm_info
+
+- name: Parse Keycloak realm information for Netbird configuration
+  set_fact:
+    keycloak_realm: "{{ keycloak_realm_info.json.realm }}"
+    keycloak_auth_server_url: "{{ keycloak_realm_info.json.'auth-server-url' }}"
+    keycloak_ssl_required: "{{ keycloak_realm_info.json.sslRequired }}"
+
+- name: Generate Netbird configuration file
+  template:
+    src: netbird_config.j2
+    dest: /etc/netbird/config.json
+  vars:
+    keycloak_realm: "{{ keycloak_realm }}"
+    keycloak_auth_server_url: "{{ keycloak_auth_server_url }}"
+    keycloak_ssl_required: "{{ keycloak_ssl_required }}"
+
+- name: Restart Netbird to apply new configuration
+  service:
+    name: netbird
+    state: restarted
